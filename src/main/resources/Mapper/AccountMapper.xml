@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.datn.hotelmanagement.mapper.AccountMapper">
+
+
+    <resultMap type="foodOrder.main.entity.Account" id="AccountResult">
+        <result property="id"    column="id"    />
+        <result property="address"    column="address"    />
+        <result property="city"    column="city"    />
+        <result property="country"    column="country"    />
+        <result property="email"    column="email"    />
+        <result property="fullName"    column="full_name"    />
+        <result property="userName"    column="user_name"    />
+        <result property="password"    column="password"    />
+        <result property="phoneNumber"    column="phone_number"    />
+        <result property="role"    column="role"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectAccountVo">
+        select id, address, city, country, email, full_name, user_name, password, phone_number, role, status from account
+    </sql>
+
+    <select id="selectAccountList" parameterType="com.datn.hotelmanagement.entity.Account" resultMap="AccountResult">
+        <include refid="selectAccountVo" />
+        <where>
+            <if test="userName != null"> and user_name like concat(concat('%', #{userName}), '%')</if>
+        </where>
+    </select>
+
+</mapper>
